@@ -30,6 +30,8 @@ const Container = ({
           onSearch={navbar?.onSearch}
           onProfile={navbar?.onProfile}
           onClick={navbar?.onClick}
+          onChangeText={navbar?.onChangeText}
+          value={navbar?.value}
         />
       ) : null}
       <ScrollView
@@ -44,6 +46,8 @@ const Container = ({
             onSearch={navbar?.onSearch}
             onProfile={navbar?.onProfile}
             onClick={navbar?.onClick}
+            onChangeText={navbar?.onChangeText}
+            value={navbar?.value}
           />
         ) : null}
         {children}

@@ -52,7 +52,9 @@ function Home() {
       bgColor={color.white8}
       navbar={{
         type: 'fixed',
-        onSearch: () => console.log(),
+        value: isSearch,
+        onChangeText: value => setSearch(value),
+        onSearch: () => getJobs(),
         onProfile: () => setOpenFilter(!isOpenFilter),
       }}
       // refScroll={scrollRef}
@@ -95,19 +97,25 @@ function Home() {
             return item?.title ? <CardJob item={item} key={index} /> : null;
           })
         : null}
-      <View style={stylesCust.pagination}>
-        <Text
-          onPress={() => getJobs(1)}
-          style={isPage == 1 ? styles.h4(color.bluep) : styles.h5(color.tgrey)}>
-          1
-        </Text>
-        <Divider width={10} />
-        <Text
-          onPress={() => getJobs(2)}
-          style={isPage == 2 ? styles.h4(color.bluep) : styles.h5(color.tgrey)}>
-          2
-        </Text>
-      </View>
+      {isSearch || isFulltime || isLocation ? null : (
+        <View style={stylesCust.pagination}>
+          <Text
+            onPress={() => getJobs(1)}
+            style={
+              isPage == 1 ? styles.h4(color.bluep) : styles.h5(color.tgrey)
+            }>
+            1
+          </Text>
+          <Divider width={10} />
+          <Text
+            onPress={() => getJobs(2)}
+            style={
+              isPage == 2 ? styles.h4(color.bluep) : styles.h5(color.tgrey)
+            }>
+            2
+          </Text>
+        </View>
+      )}
     </Container>
   );
 }
