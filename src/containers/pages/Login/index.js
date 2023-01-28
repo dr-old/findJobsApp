@@ -1,21 +1,23 @@
 import React from 'react';
-import {View, Image, Text, Platform} from 'react-native';
+import {View, Image, Text, Platform, TouchableOpacity} from 'react-native';
 import {color, styles} from '../../../utils/styles';
 import {FormInput} from '../../../components/molecules';
 import {ButtonLabel, Divider} from '../../../components/atoms';
 import stylesCust from './stylesCust';
 import useAction from './useAction';
 import {Container} from '../../organism';
+import {GoogleSigninButton} from '@react-native-google-signin/google-signin';
 
 const Login = () => {
   const {
     isToogle,
+    form,
+    user,
+    navigation,
     setToogle,
     onChangeText,
-    form,
     signIn,
-    signInValidate,
-    navigation,
+    signOut,
   } = useAction();
 
   const OptionLabel = ({title, subtitle, onClick}) => {
@@ -46,6 +48,20 @@ const Login = () => {
         />
       </View>
       <View style={stylesCust.contentBody}>
+        {!user.idToken ? (
+          <GoogleSigninButton
+            style={{width: 192, height: 48}}
+            size={GoogleSigninButton.Size.Wide}
+            color={GoogleSigninButton.Color.Dark}
+            onPress={signIn}
+            // disabled={this.state.isSigninInProgress}
+          />
+        ) : (
+          <TouchableOpacity onPress={signOut}>
+            <Text>Signout</Text>
+            <Text>{JSON.stringify(user)}</Text>
+          </TouchableOpacity>
+        )}
         <FormInput
           label="Email"
           placeholder="Masukin email mu"
@@ -77,7 +93,7 @@ const Login = () => {
           solid={true}
           label="Log In!"
           size="large"
-          disabled={!signInValidate()}
+          // disabled={!signInValidate()}
           onClick={() => signIn()}
         />
         <OptionLabel

@@ -15,6 +15,7 @@ export const getApi = async payload => {
   try {
     let params = payload.data ? {params: payload.data} : '';
     const response = await axios.get(payload.link, params);
+    console.log(response.data);
     return response.data;
   } catch (err) {
     console.log(err.response.data);

@@ -6,6 +6,8 @@ import {NavigationContainer} from '@react-navigation/native';
 // import {LoginPage, SplashPage} from '../containers/page';
 import MyLinking from './MyLinking';
 import DashboardStack from './DashboardStack';
+import {Login} from '../containers/pages';
+import {useSelector} from 'react-redux';
 
 const Stack = createNativeStackNavigator();
 
@@ -18,26 +20,21 @@ export function navigate(name, params) {
 }
 
 function Router() {
-  //   const login = useSelector(state => state.loginReducer.data);
+  const login = useSelector(state => state.loginReducer.data);
 
   return (
     <NavigationContainer linking={MyLinking} ref={navigationRef}>
       {/* {!login?.access_token ? (
-        <Stack.Navigator initialRouteName="Splash">
+        <Stack.Navigator initialRouteName="Login">
           <Stack.Screen
             name="Login"
-            component={LoginPage}
-            options={{headerShown: false}}
-          />
-          <Stack.Screen
-            name="Splash"
-            component={SplashPage}
+            component={Login}
             options={{headerShown: false}}
           />
         </Stack.Navigator>
       ) : ( */}
       <DashboardStack />
-      {/* )} */}
+      {/* // )} */}
     </NavigationContainer>
   );
 }
