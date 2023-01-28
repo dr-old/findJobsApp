@@ -4,7 +4,15 @@ import {color, styles} from '../../utils/styles';
 import {ButtonIcon, Divider, InputText} from '../atoms';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 
-function NavHeader({title, subtitle, onClick, onSearch, onProfile}) {
+function NavHeader({
+  title,
+  subtitle,
+  onClick,
+  onSearch,
+  onProfile,
+  onChangeText,
+  value,
+}) {
   const [isSearch, setSearch] = useState('');
   return (
     <TouchableOpacity
@@ -28,8 +36,9 @@ function NavHeader({title, subtitle, onClick, onSearch, onProfile}) {
             <Divider width={10} />
             <InputText
               placeholder="Search"
-              value={isSearch}
-              onChangeText={value => setSearch(value)}
+              value={value}
+              onChangeText={onChangeText}
+              // onChangeText={value => setSearch(value)}
               returnKeyType="search"
               onSubmitEditing={onSearch}
             />
