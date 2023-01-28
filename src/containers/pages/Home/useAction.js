@@ -165,14 +165,8 @@ const useAction = () => {
   const onScrollEnd = e => {};
 
   return {
-    category,
-    navigation,
-    onScrollEnd,
-    banner,
-    product,
     jobs,
-    dispatch,
-    getJobs,
+    navigation,
   };
 };
 

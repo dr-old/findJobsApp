@@ -16,6 +16,7 @@ function NavHeader({title, subtitle, onClick, onSearch, onProfile}) {
           style={stylesCust.buttonFloat}
           name="chevron-left"
           size={20}
+          disabled={true}
           // onClick={onClick}
         />
       ) : null}

@@ -27,6 +27,7 @@ const stylesCust = StyleSheet.create({
     backgroundColor: color.white,
   },
   image: {resizeMode: 'cover', width: 50, height: 50},
+  title: [styles.h7(color.tblack), {textTransform: 'capitalize'}],
 });
 
 export default stylesCust;
