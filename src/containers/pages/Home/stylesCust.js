@@ -2,63 +2,31 @@ import {PixelRatio, Platform, StyleSheet} from 'react-native';
 import {color, styles} from '../../../utils/styles';
 
 const stylesCust = StyleSheet.create({
-  groupInput: {
+  cardBody: {
     flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginHorizontal: 30,
+    paddingTop: 10,
+    paddingHorizontal: 10,
   },
-  groupItem: {width: '47%'},
-  contentBody: {marginHorizontal: 30},
-  contentImage: {
-    height: PixelRatio.getPixelSizeForLayoutSize(135),
-    width: '100%',
-    justifyContent: 'center',
+  cardImage: {
     alignItems: 'center',
+    justifyContent: 'center',
+    width: 100,
   },
   icon: {
     backgroundColor: 'transparent',
     borderColor: 'transparent',
     color: color.tgrey,
   },
-  iconCategory: {
-    backgroundColor: color.oranget4,
-    borderColor: color.oranget4,
-    color: color.bluep,
-  },
+  iconLocation: {flexDirection: 'row', marginTop: 5},
   card: {
-    paddingHorizontal: 30,
-    marginTop: 20,
-  },
-  cardBalance: {
-    flex: 1,
-    backgroundColor: color.bluep,
-    paddingHorizontal: 20,
-    paddingVertical: 15,
-    marginHorizontal: 30,
-    marginTop: 20,
-    borderRadius: 12,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  cardCategoryIcon: {
-    width: '33%',
     marginBottom: 10,
-    alignItems: 'center',
+    marginHorizontal: 30,
+    height: 135,
+    borderRadius: 15,
+    flexDirection: 'row',
+    backgroundColor: color.white,
   },
-  cardCategory: [
-    {
-      flex: 1,
-      flexDirection: 'row',
-      flexWrap: 'wrap',
-      alignSelf: 'center',
-      justifyContent: 'space-between',
-      paddingTop: 20,
-      backgroundColor: color.white,
-      borderRadius: 12,
-    },
-    styles.shadowCust(),
-  ],
+  image: {resizeMode: 'cover', width: 50, height: 50},
 });
 
 export default stylesCust;

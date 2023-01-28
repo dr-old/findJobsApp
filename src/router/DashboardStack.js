@@ -42,7 +42,7 @@ function DashboardStack() {
   ];
 
   return (
-    <Stack.Navigator initialRouteName="Splash">
+    <Stack.Navigator initialRouteName="Home">
       {page.map((item, index) => {
         return (
           <Stack.Screen

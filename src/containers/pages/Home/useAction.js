@@ -1,13 +1,17 @@
 import {useNavigation} from '@react-navigation/native';
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Alert, Platform} from 'react-native';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import Geolocation from '@react-native-community/geolocation';
 import {check, request, PERMISSIONS, RESULTS} from 'react-native-permissions';
+import {fetchJobsData} from '../../../redux/actions/jobsAction';
 
 const useAction = () => {
+  const jobs = useSelector(state => state.jobsReducer);
   const dispatch = useDispatch();
   const navigation = useNavigation();
+  const [isPage, setPage] = useState(1);
+  const [isInitialRender, setIsInitialRender] = useState(true);
   const category = [
     {
       name: `Pakaian\nWanita`,
@@ -81,9 +85,21 @@ const useAction = () => {
   ];
 
   useEffect(() => {
-    getCurrentPosition();
-    handleLocationPermission();
+    if (isInitialRender) {
+      getJobs(isPage);
+    }
+    return () => {
+      setIsInitialRender(false);
+    };
   });
+
+  const getJobs = page => {
+    const payload = {
+      link: `recruitment/positions.json?page=${page}`,
+      // data: {params: {page: 1}},
+    };
+    dispatch(fetchJobsData(payload));
+  };
 
   const getCurrentPosition = () => {
     Geolocation.getCurrentPosition(
@@ -154,6 +170,9 @@ const useAction = () => {
     onScrollEnd,
     banner,
     product,
+    jobs,
+    dispatch,
+    getJobs,
   };
 };
 
