@@ -12,11 +12,11 @@ const stylesCust = StyleSheet.create({
     justifyContent: 'center',
     width: 100,
   },
-  icon: {
+  icon: color => ({
     backgroundColor: 'transparent',
     borderColor: 'transparent',
-    color: color.tgrey,
-  },
+    color: color,
+  }),
   iconLocation: {flexDirection: 'row', marginTop: 5},
   card: {
     marginBottom: 10,
@@ -32,6 +32,23 @@ const stylesCust = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     marginTop: 20,
+  },
+  cardFilter: {
+    backgroundColor: color.white,
+    flex: 1,
+    marginHorizontal: 30,
+    marginTop: 20,
+    marginBottom: 10,
+    borderBottomLeftRadius: 15,
+    borderBottomRightRadius: 15,
+    borderTopLeftRadius: 15,
+    padding: 20,
+  },
+  filter: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 10,
   },
 });
 

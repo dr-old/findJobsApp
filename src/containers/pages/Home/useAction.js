@@ -10,6 +10,11 @@ const useAction = () => {
   const navigation = useNavigation();
   const [isPage, setPage] = useState(1);
   const [isInitialRender, setIsInitialRender] = useState(true);
+  const [isOpenFilter, setOpenFilter] = useState(false);
+  const [isFilter, setFilter] = useState(false);
+  const [isFulltime, setFulltime] = useState(false);
+  const [isLocation, setLocation] = useState('');
+  const [isSearch, setSearch] = useState('');
   const [refreshing, setRefreshing] = useState(false);
   const scrollRef = useRef();
 
@@ -31,11 +36,18 @@ const useAction = () => {
   };
 
   const getJobs = page => {
-    setPage(page);
-    const payload = {
-      link: `recruitment/positions.json?page=${page}`,
-      // data: {params: {page: 1}},
-    };
+    let payload = {};
+    if (page) {
+      setPage(page);
+      payload = {
+        link: `recruitment/positions.json?page=${page}`,
+      };
+    } else {
+      payload = {
+        link: `recruitment/positions.json?description=${isSearch}&location=${isLocation}&fulltime=${isFulltime}`,
+      };
+    }
+    console.log(payload);
     dispatch(fetchJobsData(payload));
   };
 
@@ -53,6 +65,16 @@ const useAction = () => {
     scrollRef,
     refreshing,
     isPage,
+    isOpenFilter,
+    isFilter,
+    isFulltime,
+    isLocation,
+    isSearch,
+    setSearch,
+    setLocation,
+    setFulltime,
+    setFilter,
+    setOpenFilter,
     getJobs,
     isCloseToBottom,
     pagination,

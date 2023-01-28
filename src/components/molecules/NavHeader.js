@@ -38,7 +38,11 @@ function NavHeader({title, subtitle, onClick, onSearch, onProfile}) {
           {onProfile ? (
             <>
               <TouchableOpacity onPress={onProfile} style={stylesCust.profile}>
-                <FontAwesome5 name="user" size={20} color={color.white} />
+                <FontAwesome5
+                  name="chevron-down"
+                  size={20}
+                  color={color.white}
+                />
               </TouchableOpacity>
               <Divider width={30} />
             </>
