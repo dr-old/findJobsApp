@@ -7,8 +7,13 @@ import {
   Image,
   RefreshControl,
 } from 'react-native';
-import {ButtonIcon, ButtonImage, Divider} from '../../../components/atoms';
-import {CardJob, CardProduct} from '../../../components/molecules';
+import {
+  ButtonIcon,
+  ButtonImage,
+  ButtonLabel,
+  Divider,
+} from '../../../components/atoms';
+import {CardJob, CardProduct, FormInput} from '../../../components/molecules';
 import {fetchJobsData} from '../../../redux/actions/jobsAction';
 import {color, styles} from '../../../utils/styles';
 import {Container, ImageCarousel} from '../../organism';
@@ -22,6 +27,16 @@ function Home() {
     scrollRef,
     refreshing,
     isPage,
+    isOpenFilter,
+    isFilter,
+    isFulltime,
+    isLocation,
+    isSearch,
+    setSearch,
+    setLocation,
+    setFulltime,
+    setFilter,
+    setOpenFilter,
     getJobs,
     isCloseToBottom,
     pagination,
@@ -38,7 +53,7 @@ function Home() {
       navbar={{
         type: 'fixed',
         onSearch: () => console.log(),
-        onProfile: () => console.log(),
+        onProfile: () => setOpenFilter(!isOpenFilter),
       }}
       // refScroll={scrollRef}
       // // onScroll={({nativeEvent}) => isCloseToBottom(nativeEvent)}
@@ -46,7 +61,34 @@ function Home() {
       //   <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
       // }
     >
-      <View style={{backgroundColor: color.green, height: 70, flex: 1}}></View>
+      {isOpenFilter ? (
+        <View style={stylesCust.cardFilter}>
+          <View style={stylesCust.filter}>
+            <Text style={styles.h5(color.tblack, 'center')}>Full Time</Text>
+            <ButtonIcon
+              type={stylesCust.icon(isFulltime ? color.bluep5 : color.tgrey)}
+              name={isFulltime ? 'toggle-on' : 'toggle-off'}
+              size={20}
+              alignItems="flex-end"
+              onClick={() => setFulltime(!isFulltime)}
+            />
+          </View>
+          <FormInput
+            placeholder="Location"
+            type="solid"
+            value={isLocation}
+            onChangeText={value => setLocation(value)}
+          />
+          <View style={{flex: 1, alignSelf: 'flex-end'}}>
+            <ButtonLabel
+              type={'primary'}
+              solid={true}
+              label={'Apply Filter!'}
+              onClick={() => getJobs()}
+            />
+          </View>
+        </View>
+      ) : null}
       <Divider height={10} />
       {jobs?.data?.data?.length > 0
         ? jobs.data.data.map((item, index) => {
