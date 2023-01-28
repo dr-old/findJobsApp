@@ -33,13 +33,13 @@ function CardJob({item, type}) {
             {textTransform: 'capitalize'},
           ]}
           numberOfLines={2}>
-          {type ? item.company : item.title}
+          {type ? item?.company : item?.title}
         </Text>
         {type ? null : (
           <>
-            <Text style={styles.p4(color.tgrey)}>{item.type}</Text>
+            <Text style={styles.p4(color.tgrey)}>{item?.type}</Text>
             <Text style={styles.p5(color.bluep)} numberOfLines={2}>
-              {item.company}
+              {item?.company}
             </Text>
           </>
         )}
@@ -47,12 +47,12 @@ function CardJob({item, type}) {
           <FontAwesome5 name="map-marker-alt" size={15} color={color.tgrey} />
           <Divider width={5} />
           <Text style={styles.p4(color.tgrey)} numberOfLines={1}>
-            {item.location}
+            {item?.location}
           </Text>
         </View>
         {type ? (
           <Text
-            onPress={() => Linking.openURL(item.company_url)}
+            onPress={() => Linking.openURL(item?.company_url)}
             style={[styles.p4(color.bluep), {marginTop: 5}]}>
             Go To Website
           </Text>
