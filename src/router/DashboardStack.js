@@ -24,20 +24,8 @@ const Stack = createNativeStackNavigator();
 function DashboardStack() {
   const page = [
     {name: 'Home', comp: TabStack, header: false}, // if you can use tab bottom navigation
-    // {name: 'Home', comp: Home, header: false}, // if you cannot use tab bottom navigation
-    {name: 'Typography', comp: Typography, header: true},
-    {name: 'Form', comp: Form, header: true},
-    {name: 'Notification', comp: Notification, header: true},
-    {name: 'ChatDetail', comp: ChatDetail, header: true},
     {name: 'Splash', comp: Splash, header: false},
-    {name: 'Register', comp: Register, header: false},
     {name: 'Login', comp: Login, header: false},
-    {name: 'VerifyUser', comp: VerifyUser, header: false},
-    {name: 'Maps', comp: Maps, header: false},
-    {name: 'MapsSearch', comp: MapsSearch, header: false},
-    {name: 'MapsDirection', comp: MapsDirection, header: false},
-    {name: 'MapsLocation', comp: MapsLocation, header: false},
-    {name: 'Cart', comp: Cart, header: false},
     {name: 'Product', comp: Product, header: false},
   ];
 

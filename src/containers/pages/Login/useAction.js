@@ -18,19 +18,19 @@ const useAction = () => {
 
   useEffect(() => {
     GoogleSignin.configure({
-      // scopes: ['https://www.googleapis.com/auth/drive.readonly'], // what API you want to access on behalf of the user, default is email and profile
-      // webClientId:
-      // '920534733394-m38uodis0ddd3a0epf7alecracrngpc4.apps.googleusercontent.com', // client ID of type WEB for your server (needed to verify user ID and offline access)
-      androidClientId:
-        '920534733394-cplg12asg33dv1g1h98p8jsqeh9e52uc.apps.googleusercontent.com',
-      // offlineAccess: true, // if you want to access Google API on behalf of the user FROM YOUR SERVER
+      scopes: ['https://www.googleapis.com/auth/drive.readonly'], // what API you want to access on behalf of the user, default is email and profile
+      webClientId:
+        '920534733394-m38uodis0ddd3a0epf7alecracrngpc4.apps.googleusercontent.com', // client ID of type WEB for your server (needed to verify user ID and offline access)
+      // androidClientId:
+      //   '920534733394-cplg12asg33dv1g1h98p8jsqeh9e52uc.apps.googleusercontent.com',
+      offlineAccess: false, // if you want to access Google API on behalf of the user FROM YOUR SERVER
       // hostedDomain: '', // specifies a hosted domain restriction
       // forceCodeForRefreshToken: true, // [Android] related to `serverAuthCode`, read the docs link below *.
       // accountName: '', // [Android] specifies an account name on the device that should be used
       // iosClientId: '<FROM DEVELOPER CONSOLE>', // [iOS] if you want to specify the client ID of type iOS (otherwise, it is taken from GoogleService-Info.plist)
       // googleServicePlistPath: '', // [iOS] if you renamed your GoogleService-Info file, new name here, e.g. GoogleService-Info-Staging
       // openIdRealm: '', // [iOS] The OpenID2 realm of the home web server. This allows Google to include the user's OpenID Identifier in the OpenID Connect ID token.
-      // profileImageSize: 120, // [iOS] The desired height (and width) of the profile image. Defaults to 120px
+      profileImageSize: 120, // [iOS] The desired height (and width) of the profile image. Defaults to 120px
     });
     isSignedIn();
   });
@@ -71,14 +71,16 @@ const useAction = () => {
 
   const getCurrentUserInfo = async () => {
     try {
-      const userInfo = await GoogleSignin.signInSilently();
+      const userInfo = await GoogleSignin.signInSilently({
+        suppressErrors: false,
+      });
       console.log('edit: ', user);
       setUser(userInfo);
     } catch (error) {
       if (error.code === statusCodes.SIGN_IN_REQUIRED) {
-        console.log('User has not signed:');
+        console.log('User has not signed:', error);
       } else {
-        console.log('Something went wrong in curr', error);
+        console.log('Something went wrong in curr:', error);
       }
     }
   };
