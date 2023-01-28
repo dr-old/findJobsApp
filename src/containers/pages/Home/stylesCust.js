@@ -28,6 +28,11 @@ const stylesCust = StyleSheet.create({
   },
   image: {resizeMode: 'cover', width: 50, height: 50},
   title: [styles.h7(color.tblack), {textTransform: 'capitalize'}],
+  pagination: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    marginTop: 20,
+  },
 });
 
 export default stylesCust;
