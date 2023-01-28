@@ -11,9 +11,7 @@ const Tab = createBottomTabNavigator();
 export default function TabStack() {
   const tabBar = [
     {name: 'HomeTab', label: 'Beranda', icon: 'home', comp: Home},
-    {name: 'ChatTab', label: 'Keranjang', icon: 'shopping-cart', comp: Cart},
-    {name: 'HistoryTab', label: 'Riwayat', icon: 'history', comp: History},
-    {name: 'NoticationTab', label: 'Notifikasi', icon: 'bell', comp: Setting},
+    {name: 'ProfileTab', label: 'Profile', icon: 'user', comp: Setting},
   ];
 
   return (

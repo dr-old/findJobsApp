@@ -24,7 +24,7 @@ function Router() {
 
   return (
     <NavigationContainer linking={MyLinking} ref={navigationRef}>
-      {/* {!login?.access_token ? (
+      {!login?.access_token ? (
         <Stack.Navigator initialRouteName="Login">
           <Stack.Screen
             name="Login"
@@ -32,9 +32,9 @@ function Router() {
             options={{headerShown: false}}
           />
         </Stack.Navigator>
-      ) : ( */}
-      <DashboardStack />
-      {/* // )} */}
+      ) : (
+        <DashboardStack />
+      )}
     </NavigationContainer>
   );
 }
