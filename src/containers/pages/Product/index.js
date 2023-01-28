@@ -8,7 +8,7 @@ import {color, styles} from '../../../utils/styles';
 import {Container} from '../../organism';
 import stylesCust from './stylesCust';
 import useAction from './useAction';
-import CardJob from '../../../components/atoms/CardJob';
+import {CardJob} from '../../../components/molecules';
 
 function Product({route}) {
   const {itemData} = route.params;
@@ -22,8 +22,13 @@ function Product({route}) {
         onClick: () => navigation.goBack(),
       }}>
       <Divider height={10} />
-      <CardJob item={itemData} />
+      <CardJob item={itemData} type={true} />
       <View style={stylesCust.cardDesc}>
+        <Text style={styles.h6()}>Title</Text>
+        <Divider height={10} />
+        <Text style={styles.h5()}>{itemData.title}</Text>
+        <Text style={styles.p4(color.tgrey)}>{itemData.type}</Text>
+        <Divider height={20} />
         <Text style={styles.h6()}>Deskripsi</Text>
         <Divider height={10} />
         <Text style={styles.p5(color.tgrey)}>{itemData.description}</Text>

@@ -1,4 +1,5 @@
 import BarHeader from './BarHeader';
+import CardJob from './CardJob';
 import CardProduct from './CardProduct';
 import ChatBubble from './ChatBubble';
 import ErrorMessage from './ErrorMessage';
@@ -18,4 +19,5 @@ export {
   LoadingExtern,
   LoadingIntern,
   FormGooglePlace,
+  CardJob,
 };

@@ -1,11 +1,18 @@
 import {useNavigation} from '@react-navigation/native';
 import React from 'react';
-import {StyleSheet, TouchableOpacity, Image, View, Text} from 'react-native';
+import {
+  StyleSheet,
+  TouchableOpacity,
+  Image,
+  View,
+  Text,
+  Linking,
+} from 'react-native';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import {styles, color} from '../../utils/styles';
-import Divider from './Divider';
+import Divider from '../atoms/Divider';
 
-function CardJob({item}) {
+function CardJob({item, type}) {
   const navigation = useNavigation();
 
   return (
@@ -20,13 +27,22 @@ function CardJob({item}) {
         />
       </View>
       <View style={stylesCust.cardBody}>
-        <Text style={stylesCust.title} numberOfLines={2}>
-          {item.title}
+        <Text
+          style={[
+            type ? styles.h5(color.tblack) : styles.h7(color.tblack),
+            {textTransform: 'capitalize'},
+          ]}
+          numberOfLines={2}>
+          {type ? item.company : item.title}
         </Text>
-        <Text style={styles.p4(color.tgrey)}>{item.type}</Text>
-        <Text style={styles.p5(color.bluep)} numberOfLines={2}>
-          {item.company}
-        </Text>
+        {type ? null : (
+          <>
+            <Text style={styles.p4(color.tgrey)}>{item.type}</Text>
+            <Text style={styles.p5(color.bluep)} numberOfLines={2}>
+              {item.company}
+            </Text>
+          </>
+        )}
         <View style={stylesCust.iconLocation}>
           <FontAwesome5 name="map-marker-alt" size={15} color={color.tgrey} />
           <Divider width={5} />
@@ -34,6 +50,13 @@ function CardJob({item}) {
             {item.location}
           </Text>
         </View>
+        {type ? (
+          <Text
+            onPress={() => Linking.openURL(item.company_url)}
+            style={[styles.p4(color.bluep), {marginTop: 5}]}>
+            Go To Website
+          </Text>
+        ) : null}
       </View>
     </TouchableOpacity>
   );
@@ -65,7 +88,6 @@ const stylesCust = StyleSheet.create({
     backgroundColor: color.white,
   },
   image: {resizeMode: 'cover', width: 50, height: 50},
-  title: [styles.h7(color.tblack), {textTransform: 'capitalize'}],
 });
 
 export default CardJob;
