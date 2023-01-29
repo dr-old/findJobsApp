@@ -20,11 +20,11 @@ export function navigate(name, params) {
 }
 
 function Router() {
-  const login = useSelector(state => state.loginReducer.data);
+  const login = useSelector(state => state.generalReducer.login);
 
   return (
     <NavigationContainer linking={MyLinking} ref={navigationRef}>
-      {!login?.access_token ? (
+      {!login?.idToken ? (
         <Stack.Navigator initialRouteName="Login">
           <Stack.Screen
             name="Login"

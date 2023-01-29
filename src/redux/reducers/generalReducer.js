@@ -14,6 +14,10 @@ const initialState = {
     email: '',
     password: '',
   },
+  login: {
+    idToken: '',
+    user: {},
+  },
   formLogin: {
     email: '',
     password: '',
@@ -151,6 +155,27 @@ export default generalReducer = (state = initialState, action) => {
           lastName: '',
           email: '',
           password: '',
+        },
+      };
+
+    //REDUCER FORM LOGIN
+    case 'SET_LOGIN':
+      return {
+        ...state,
+        login: {
+          ...state.login,
+          idToken: action.idToken,
+          user: action.user,
+        },
+      };
+
+    case 'SET_LOGIN_CLEAN':
+      return {
+        ...state,
+        login: {
+          ...state.login,
+          idToken: '',
+          user: {},
         },
       };
 

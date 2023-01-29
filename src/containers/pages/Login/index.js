@@ -20,26 +20,14 @@ const Login = () => {
     isToogle,
     form,
     user,
+    login,
     navigation,
     setToogle,
     onChangeText,
     signIn,
     signOut,
   } = useAction();
-
-  const OptionLabel = ({title, subtitle, onClick}) => {
-    return (
-      <>
-        <Divider height={Platform.OS === 'ios' ? 10 : 20} />
-        <Text style={[styles.h8(color.tgrey3, 'center')]}>
-          {title}
-          <Text onPress={onClick} style={[styles.h8(color.bluep5)]}>
-            {subtitle}
-          </Text>
-        </Text>
-      </>
-    );
-  };
+  console.log('user:', login);
 
   return (
     <Container
@@ -55,57 +43,14 @@ const Login = () => {
         />
       </View>
       <View style={stylesCust.contentBody}>
-        {!user.idToken ? (
-          <GoogleSigninButton
-            style={styles.signInButton}
-            size={GoogleSigninButton.Size.Wide}
-            color={GoogleSigninButton.Color.Dark}
-            onPress={() => signIn()}
-          />
-        ) : (
-          <TouchableOpacity onPress={signOut}>
-            <Text>Signout</Text>
-            <Text>{JSON.stringify(user)}</Text>
-          </TouchableOpacity>
-        )}
-        {/* <FormInput
-          label="Email"
-          placeholder="Masukin email mu"
-          type="outline"
-          value={form.email}
-          onChangeText={value => onChangeText('email', value)}
-        />
-        <FormInput
-          label={'Password'}
-          placeholder="Tulis password mu"
-          type="outline"
-          secureTextEntry={isToogle}
-          value={form.password}
-          onChangeText={value => onChangeText('password', value)}
-          icon={{
-            name: !isToogle ? 'eye' : 'eye-slash',
-            color: color.grey2,
-            onClick: () => setToogle(!isToogle),
-          }}
-        />
-        <Text
-          onPress={() => console.log('ForgotPassword')}
-          style={styles.h7(color.bluep5, 'right')}>
-          Forgot Password ?{' '}
-        </Text> */}
-        <Divider height={Platform.OS === 'ios' ? 10 : 20} />
+        {user?.user ? <Text>{user.user.name}</Text> : null}
         <ButtonLabel
           type="primary"
           solid={true}
-          label="Log In!"
+          label="Login dengan Google!"
           size="large"
           // disabled={!signInValidate()}
           onClick={() => signIn()}
-        />
-        <OptionLabel
-          title="Dont have account ? "
-          subtitle="Sign Up"
-          onClick={() => navigation.push('Register')}
         />
       </View>
     </Container>
