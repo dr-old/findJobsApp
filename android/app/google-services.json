@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "920534733394",
+    "project_id": "findjobsapp",
+    "storage_bucket": "findjobsapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:920534733394:android:6f9b849398e78bc8be858b",
+        "android_client_info": {
+          "package_name": "com.danni.findjobsapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "920534733394-cplg12asg33dv1g1h98p8jsqeh9e52uc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.danni.findjobsapp",
+            "certificate_hash": "2db6680e42de47b5d6798df132f3541e81c64ae2"
+          }
+        },
+        {
+          "client_id": "920534733394-pqbdvn0l8rbo8ltri1ttjq149aqh8o69.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAUnolbLvHIwUlutNBtCab3yThTNCwndG4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "920534733394-bg44536o97cimu4erg8i75vshmdr62j0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
