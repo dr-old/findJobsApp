@@ -2,6 +2,7 @@ package com.danni.findjobsapp;
 
 import android.app.Application;
 import android.content.Context;
+import com.reactnativerestart.RestartPackage;
 import com.arttitude360.reactnative.rngoogleplaces.RNGooglePlacesPackage;
 import com.dieam.reactnativepushnotification.ReactNativePushNotificationPackage;
 import com.oblador.vectoricons.VectorIconsPackage;

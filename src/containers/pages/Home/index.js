@@ -92,6 +92,7 @@ function Home() {
         </View>
       ) : null}
       <Divider height={10} />
+      {/* <Text style={styles.p5()}>{JSON.stringify(jobs.data.data)}</Text> */}
       {jobs?.data?.data?.length > 0
         ? jobs.data.data.map((item, index) => {
             return item?.title ? <CardJob item={item} key={index} /> : null;

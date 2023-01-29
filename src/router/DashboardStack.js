@@ -30,7 +30,7 @@ function DashboardStack() {
   ];
 
   return (
-    <Stack.Navigator initialRouteName="Home">
+    <Stack.Navigator initialRouteName="Login">
       {page.map((item, index) => {
         return (
           <Stack.Screen

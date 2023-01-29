@@ -25,9 +25,7 @@ const Login = () => {
     setToogle,
     onChangeText,
     signIn,
-    signOut,
   } = useAction();
-  console.log('user:', login);
 
   return (
     <Container
@@ -43,14 +41,15 @@ const Login = () => {
         />
       </View>
       <View style={stylesCust.contentBody}>
-        {user?.user ? <Text>{user.user.name}</Text> : null}
         <ButtonLabel
-          type="primary"
+          type={user?.idToken ? 'success' : 'primary'}
           solid={true}
-          label="Login dengan Google!"
+          label={user?.idToken ? 'Lanjut Masuk' : 'Login dengan Google!'}
           size="large"
           // disabled={!signInValidate()}
-          onClick={() => signIn()}
+          onClick={() =>
+            user?.idToken ? navigation.replace('Home') : signIn()
+          }
         />
       </View>
     </Container>

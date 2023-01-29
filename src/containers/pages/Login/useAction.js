@@ -12,7 +12,6 @@ import {Alert} from 'react-native';
 const useAction = () => {
   const dispatch = useDispatch();
   const form = useSelector(state => state.generalReducer.formLogin);
-  const login = useSelector(state => state.generalReducer.login);
   const navigation = useNavigation();
   const [isToogle, setToogle] = useState(true);
   const [user, setUser] = useState({});
@@ -35,6 +34,7 @@ const useAction = () => {
   };
 
   const signIn = async () => {
+    console.log(form);
     try {
       await GoogleSignin.hasPlayServices();
       const userInfo = await GoogleSignin.signIn();
@@ -46,7 +46,6 @@ const useAction = () => {
       });
       setUser(userInfo);
       setError(null);
-      setLoggedIn(true);
       // navigation.replace('Home');
     } catch (error) {
       console.log('due: ', error.message);
@@ -60,32 +59,31 @@ const useAction = () => {
         console.log('Some other error happened', error);
       }
       setError(error.toString());
-      dispatch({type: 'SET_LOGIN', user: {}});
+      dispatch({type: 'SET_LOGIN_CLEAN'});
     }
   };
 
-  const isSignedIn = async () => {
-    const isSignedIn = await GoogleSignin.isSignedIn();
-    if (isSignedIn) {
-      getCurrentUserInfo();
-    } else {
-      console.log('Please login');
-    }
-  };
+  // const isSignedIn = async () => {
+  //   const isSignedIn = await GoogleSignin.isSignedIn();
+  //   if (isSignedIn) {
+  //     getCurrentUserInfo();
+  //   } else {
+  //     console.log('Please login');
+  //   }
+  // };
 
   const getCurrentUserInfo = async () => {
     try {
       const userInfo = await GoogleSignin.signInSilently();
-      // console.log('edit: ', user);
+      console.log('edit: ', user);
       setUser(userInfo);
     } catch (error) {
       if (error.code === statusCodes.SIGN_IN_REQUIRED) {
         console.log('User has not signed:', error);
-        setLoggedIn(false);
       } else {
         console.log('Something went wrong in curr:', error);
-        setLoggedIn(false);
       }
+      dispatch({type: 'SET_LOGIN_CLEAN'});
     }
   };
 
@@ -93,7 +91,6 @@ const useAction = () => {
     try {
       await GoogleSignin.revokeAccess();
       await GoogleSignin.signOut();
-      setLoggedIn(false);
     } catch (error) {
       console.log(error);
     }
@@ -103,7 +100,6 @@ const useAction = () => {
     isToogle,
     form,
     user,
-    login,
     navigation,
     setToogle,
     onChangeText,

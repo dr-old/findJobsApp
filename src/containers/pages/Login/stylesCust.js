@@ -11,6 +11,7 @@ const stylesCust = StyleSheet.create({
   groupItem: {width: '47%'},
   contentBody: {marginHorizontal: 30, marginTop: 50},
   contentImage: {
+    marginTop: 30,
     height: PixelRatio.getPixelSizeForLayoutSize(135),
     width: '100%',
     justifyContent: 'center',
