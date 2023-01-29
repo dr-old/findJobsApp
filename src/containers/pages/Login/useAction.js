@@ -11,32 +11,23 @@ import {Alert} from 'react-native';
 
 const useAction = () => {
   const dispatch = useDispatch();
-  // const regis = useSelector(state => state.registerReducer);
   const form = useSelector(state => state.generalReducer.formLogin);
+  const login = useSelector(state => state.generalReducer.login);
   const navigation = useNavigation();
   const [isToogle, setToogle] = useState(true);
   const [user, setUser] = useState({});
-  const [isLoggedIn, setLoggedIn] = useState(false);
+  const [isLoggedIn, setLoggedIn] = useState(true);
   const [isError, setError] = useState(null);
 
   useEffect(() => {
     GoogleSignin.configure({
       scopes: ['email'],
-      // scopes: ['https://www.googleapis.com/auth/drive.readonly'], // what API you want to access on behalf of the user, default is email and profile
       webClientId:
         '920534733394-m38uodis0ddd3a0epf7alecracrngpc4.apps.googleusercontent.com', // client ID of type WEB for your server (needed to verify user ID and offline access)
-      // androidClientId:
-      //   '920534733394-cplg12asg33dv1g1h98p8jsqeh9e52uc.apps.googleusercontent.com',
       offlineAccess: false, // if you want to access Google API on behalf of the user FROM YOUR SERVER
-      // hostedDomain: '', // specifies a hosted domain restriction
-      // forceCodeForRefreshToken: true, // [Android] related to `serverAuthCode`, read the docs link below *.
-      // accountName: '', // [Android] specifies an account name on the device that should be used
-      // iosClientId: '<FROM DEVELOPER CONSOLE>', // [iOS] if you want to specify the client ID of type iOS (otherwise, it is taken from GoogleService-Info.plist)
-      // googleServicePlistPath: '', // [iOS] if you renamed your GoogleService-Info file, new name here, e.g. GoogleService-Info-Staging
-      // openIdRealm: '', // [iOS] The OpenID2 realm of the home web server. This allows Google to include the user's OpenID Identifier in the OpenID Connect ID token.
       profileImageSize: 120, // [iOS] The desired height (and width) of the profile image. Defaults to 120px
     });
-    isSignedIn();
+    // isSignedIn();
   });
 
   const onChangeText = (type, value) => {
@@ -44,14 +35,19 @@ const useAction = () => {
   };
 
   const signIn = async () => {
-    console.log(form);
     try {
       await GoogleSignin.hasPlayServices();
       const userInfo = await GoogleSignin.signIn();
-      console.log('user: ', userInfo);
+      // console.log('user: ', userInfo);
+      dispatch({
+        type: 'SET_LOGIN',
+        user: userInfo.user,
+        idToken: userInfo.idToken,
+      });
       setUser(userInfo);
       setError(null);
       setLoggedIn(true);
+      // navigation.replace('Home');
     } catch (error) {
       console.log('due: ', error.message);
       if (error.code === statusCodes.SIGN_IN_CANCELLED) {
@@ -64,12 +60,13 @@ const useAction = () => {
         console.log('Some other error happened', error);
       }
       setError(error.toString());
+      dispatch({type: 'SET_LOGIN', user: {}});
     }
   };
 
   const isSignedIn = async () => {
     const isSignedIn = await GoogleSignin.isSignedIn();
-    if (!isSignedIn) {
+    if (isSignedIn) {
       getCurrentUserInfo();
     } else {
       console.log('Please login');
@@ -79,7 +76,7 @@ const useAction = () => {
   const getCurrentUserInfo = async () => {
     try {
       const userInfo = await GoogleSignin.signInSilently();
-      console.log('edit: ', user);
+      // console.log('edit: ', user);
       setUser(userInfo);
     } catch (error) {
       if (error.code === statusCodes.SIGN_IN_REQUIRED) {
@@ -102,18 +99,11 @@ const useAction = () => {
     }
   };
 
-  const signInValidate = () => {
-    if (form.email && form.password) {
-      return true;
-    } else {
-      return false;
-    }
-  };
-
   return {
     isToogle,
     form,
     user,
+    login,
     navigation,
     setToogle,
     onChangeText,

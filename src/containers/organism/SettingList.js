@@ -47,6 +47,7 @@ const stylesCust = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'flex-start',
     alignItems: 'center',
+    marginBottom: 20,
   },
   icon: backgroundColor => ({
     width: 48,
