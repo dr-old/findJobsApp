@@ -1,5 +1,12 @@
 import React from 'react';
-import {View, Image, Text, Platform, TouchableOpacity} from 'react-native';
+import {
+  View,
+  Image,
+  Text,
+  Platform,
+  TouchableOpacity,
+  Button,
+} from 'react-native';
 import {color, styles} from '../../../utils/styles';
 import {FormInput} from '../../../components/molecules';
 import {ButtonLabel, Divider} from '../../../components/atoms';
@@ -50,11 +57,10 @@ const Login = () => {
       <View style={stylesCust.contentBody}>
         {!user.idToken ? (
           <GoogleSigninButton
-            style={{width: 192, height: 48}}
+            style={styles.signInButton}
             size={GoogleSigninButton.Size.Wide}
             color={GoogleSigninButton.Color.Dark}
-            onPress={signIn}
-            // disabled={this.state.isSigninInProgress}
+            onPress={() => signIn()}
           />
         ) : (
           <TouchableOpacity onPress={signOut}>
@@ -62,7 +68,7 @@ const Login = () => {
             <Text>{JSON.stringify(user)}</Text>
           </TouchableOpacity>
         )}
-        <FormInput
+        {/* <FormInput
           label="Email"
           placeholder="Masukin email mu"
           type="outline"
@@ -86,7 +92,7 @@ const Login = () => {
           onPress={() => console.log('ForgotPassword')}
           style={styles.h7(color.bluep5, 'right')}>
           Forgot Password ?{' '}
-        </Text>
+        </Text> */}
         <Divider height={Platform.OS === 'ios' ? 10 : 20} />
         <ButtonLabel
           type="primary"

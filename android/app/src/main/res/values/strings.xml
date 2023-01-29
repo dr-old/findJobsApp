@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">FindJobsApp</string>
     <string name="default_notification_channel_id">default_notification_channel_id</string>
+    <string name="server_client_id">920534733394-bg44536o97cimu4erg8i75vshmdr62j0.apps.googleusercontent.com</string>
 </resources>

@@ -1,6 +1,7 @@
 import {useNavigation} from '@react-navigation/native';
 import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
+// import auth from '@react-native-firebase/auth';
 import {
   GoogleSignin,
   GoogleSigninButton,
@@ -15,10 +16,13 @@ const useAction = () => {
   const navigation = useNavigation();
   const [isToogle, setToogle] = useState(true);
   const [user, setUser] = useState({});
+  const [isLoggedIn, setLoggedIn] = useState(false);
+  const [isError, setError] = useState(null);
 
   useEffect(() => {
     GoogleSignin.configure({
-      scopes: ['https://www.googleapis.com/auth/drive.readonly'], // what API you want to access on behalf of the user, default is email and profile
+      scopes: ['email'],
+      // scopes: ['https://www.googleapis.com/auth/drive.readonly'], // what API you want to access on behalf of the user, default is email and profile
       webClientId:
         '920534733394-m38uodis0ddd3a0epf7alecracrngpc4.apps.googleusercontent.com', // client ID of type WEB for your server (needed to verify user ID and offline access)
       // androidClientId:
@@ -46,6 +50,8 @@ const useAction = () => {
       const userInfo = await GoogleSignin.signIn();
       console.log('user: ', userInfo);
       setUser(userInfo);
+      setError(null);
+      setLoggedIn(true);
     } catch (error) {
       console.log('due: ', error.message);
       if (error.code === statusCodes.SIGN_IN_CANCELLED) {
@@ -57,6 +63,7 @@ const useAction = () => {
       } else {
         console.log('Some other error happened', error);
       }
+      setError(error.toString());
     }
   };
 
@@ -71,16 +78,16 @@ const useAction = () => {
 
   const getCurrentUserInfo = async () => {
     try {
-      const userInfo = await GoogleSignin.signInSilently({
-        suppressErrors: false,
-      });
+      const userInfo = await GoogleSignin.signInSilently();
       console.log('edit: ', user);
       setUser(userInfo);
     } catch (error) {
       if (error.code === statusCodes.SIGN_IN_REQUIRED) {
         console.log('User has not signed:', error);
+        setLoggedIn(false);
       } else {
         console.log('Something went wrong in curr:', error);
+        setLoggedIn(false);
       }
     }
   };
@@ -89,6 +96,7 @@ const useAction = () => {
     try {
       await GoogleSignin.revokeAccess();
       await GoogleSignin.signOut();
+      setLoggedIn(false);
     } catch (error) {
       console.log(error);
     }
