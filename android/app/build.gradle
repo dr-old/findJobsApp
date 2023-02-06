@@ -136,7 +136,7 @@ android {
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
-        versionName "1.0"
+        versionName "0.0.3"
 
         multiDexEnabled true
     }
@@ -216,6 +216,8 @@ dependencies {
     implementation platform('com.google.firebase:firebase-bom:31.2.0')
 
     implementation 'com.android.support:multidex:2.0.1'
+    
+    implementation project(':react-native-restart')
 
     // implementation project(":react-native-community_google-signin")
 

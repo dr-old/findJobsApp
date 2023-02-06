@@ -9,10 +9,17 @@ import {Container} from '../../organism';
 import stylesCust from './stylesCust';
 import useAction from './useAction';
 import {CardJob} from '../../../components/molecules';
+import {useEffect} from 'react';
 
 function Product({route}) {
   const {itemData} = route.params;
-  const {navigation, isQty, setQty, isFav, setFav} = useAction();
+  const {navigation, isQty, setQty, isFav, setFav, handleGetDetail} =
+    useAction();
+
+  useEffect(() => {
+    handleGetDetail(itemData.id);
+  });
+
   return (
     <Container
       bgColor={color.white8}

@@ -9,38 +9,16 @@ const useAction = () => {
   const [isQty, setQty] = useState(1);
   const [isFav, setFav] = useState(false);
 
-  // const buy = async data => {
-  //   data['qty'] = isQty;
-  //   const oldData = await helpers.getLocalStorage(`@USER_${login.email}`);
-  //   if (JSON.parse(oldData)?.length > 0) {
-  //     let parse = JSON.parse(oldData);
-  //     let oldFilter = parse.filter(i => i.id !== data.id);
-  //     if (parse?.length > 0) {
-  //       let oldQty = parse.find(i => i.id === data.id);
-  //       if (oldQty?.qty) {
-  //         data['qty'] = parseInt(data.qty + oldQty.qty);
-  //       }
-  //       let price =
-  //         data?.discount > 0
-  //           ? data.price - (data.price * data.discount) / 100
-  //           : data.price;
-  //       data['subtotal'] = parseInt(data.qty * price);
-  //     }
-  //     let newData = [...oldFilter, data];
-  //     helpers.setLocalStorage(newData, `@USER_${login.email}`);
-  //   } else {
-  //     let price =
-  //       data?.discount > 0
-  //         ? data.price - (data.price * data.discount) / 100
-  //         : data.price;
-  //     data['subtotal'] = parseInt(data.qty * price);
-  //     console.log(2, data);
-  //     helpers.setLocalStorage([data], `@USER_${login.email}`);
-  //   }
-  //   navigation.push('Checkout');
-  // };
+  const handleGetDetail = id => {
+    let payload = {
+      link: `recruitment/positions/${id}`,
+    };
 
-  return {navigation, isQty, setQty, isFav, setFav};
+    console.log(payload);
+    // dispatch(fetchJobsData(payload));
+  };
+
+  return {navigation, isQty, setQty, isFav, setFav, handleGetDetail};
 };
 
 export default useAction;

@@ -15,9 +15,10 @@ const useAction = () => {
 
   const signOut = async () => {
     try {
-      await GoogleSignin.revokeAccess();
-      await GoogleSignin.signOut();
+      // await GoogleSignin.revokeAccess();
+      // await GoogleSignin.signOut();
       dispatch({type: 'SET_LOGIN_CLEAN'});
+      navigation.replace('Login');
     } catch (error) {
       console.log(error);
     }

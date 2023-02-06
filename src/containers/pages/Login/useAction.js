@@ -12,11 +12,10 @@ import {Alert} from 'react-native';
 const useAction = () => {
   const dispatch = useDispatch();
   const form = useSelector(state => state.generalReducer.formLogin);
-  const login = useSelector(state => state.generalReducer.login);
   const navigation = useNavigation();
   const [isToogle, setToogle] = useState(true);
   const [user, setUser] = useState({});
-  const [isLoggedIn, setLoggedIn] = useState(true);
+  const [isLoggedIn, setLoggedIn] = useState(false);
   const [isError, setError] = useState(null);
 
   useEffect(() => {
@@ -35,15 +34,11 @@ const useAction = () => {
   };
 
   const signIn = async () => {
+    console.log(form);
     try {
       await GoogleSignin.hasPlayServices();
       const userInfo = await GoogleSignin.signIn();
       // console.log('user: ', userInfo);
-      dispatch({
-        type: 'SET_LOGIN',
-        user: userInfo.user,
-        idToken: userInfo.idToken,
-      });
       setUser(userInfo);
       setError(null);
       setLoggedIn(true);
@@ -59,8 +54,21 @@ const useAction = () => {
       } else {
         console.log('Some other error happened', error);
       }
-      setError(error.toString());
-      dispatch({type: 'SET_LOGIN', user: {}});
+      setLoggedIn(false);
+      dispatch({type: 'SET_LOGIN_CLEAN'});
+    }
+  };
+
+  const proccessLogin = () => {
+    if (isLoggedIn) {
+      // navigation.replace('Home');
+      dispatch({
+        type: 'SET_LOGIN',
+        user: user.user,
+        idToken: user.idToken,
+      });
+    } else {
+      signIn();
     }
   };
 
@@ -76,16 +84,17 @@ const useAction = () => {
   const getCurrentUserInfo = async () => {
     try {
       const userInfo = await GoogleSignin.signInSilently();
-      // console.log('edit: ', user);
+      console.log('edit: ', user);
       setUser(userInfo);
+      setLoggedIn(true);
     } catch (error) {
       if (error.code === statusCodes.SIGN_IN_REQUIRED) {
         console.log('User has not signed:', error);
-        setLoggedIn(false);
       } else {
         console.log('Something went wrong in curr:', error);
-        setLoggedIn(false);
       }
+      setLoggedIn(false);
+      dispatch({type: 'SET_LOGIN_CLEAN'});
     }
   };
 
@@ -93,7 +102,6 @@ const useAction = () => {
     try {
       await GoogleSignin.revokeAccess();
       await GoogleSignin.signOut();
-      setLoggedIn(false);
     } catch (error) {
       console.log(error);
     }
@@ -103,12 +111,14 @@ const useAction = () => {
     isToogle,
     form,
     user,
-    login,
     navigation,
+    isLoggedIn,
+    setLoggedIn,
     setToogle,
     onChangeText,
     signIn,
     signOut,
+    proccessLogin,
   };
 };
 

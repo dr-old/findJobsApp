@@ -1,4 +1,4 @@
-import {useNavigation} from '@react-navigation/native';
+import {useIsFocused, useNavigation} from '@react-navigation/native';
 import React, {useEffect, useRef, useState, useCallback} from 'react';
 import {Alert, RefreshControl} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
@@ -8,6 +8,7 @@ const useAction = () => {
   const jobs = useSelector(state => state.jobsReducer);
   const dispatch = useDispatch();
   const navigation = useNavigation();
+  const isFocused = useIsFocused();
   const [isPage, setPage] = useState(1);
   const [isInitialRender, setIsInitialRender] = useState(true);
   const [isOpenFilter, setOpenFilter] = useState(false);
@@ -37,6 +38,8 @@ const useAction = () => {
 
   const getJobs = page => {
     let payload = {};
+    let search = isSearch.toLowerCase();
+    let location = isLocation.toLowerCase();
     if (page) {
       setPage(page);
       payload = {
@@ -44,7 +47,7 @@ const useAction = () => {
       };
     } else {
       payload = {
-        link: `recruitment/positions.json?description=${isSearch}&location=${isLocation}&fulltime=${isFulltime}`,
+        link: `recruitment/positions.json?description=${search}&location=${location}&fulltime=${isFulltime.toString()}`,
       };
     }
     console.log(payload);
