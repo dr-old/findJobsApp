@@ -15,7 +15,7 @@ const useAction = () => {
   const navigation = useNavigation();
   const [isToogle, setToogle] = useState(true);
   const [user, setUser] = useState({});
-  const [isLoggedIn, setLoggedIn] = useState(true);
+  const [isLoggedIn, setLoggedIn] = useState(false);
   const [isError, setError] = useState(null);
 
   useEffect(() => {
@@ -39,13 +39,9 @@ const useAction = () => {
       await GoogleSignin.hasPlayServices();
       const userInfo = await GoogleSignin.signIn();
       // console.log('user: ', userInfo);
-      dispatch({
-        type: 'SET_LOGIN',
-        user: userInfo.user,
-        idToken: userInfo.idToken,
-      });
       setUser(userInfo);
       setError(null);
+      setLoggedIn(true);
       // navigation.replace('Home');
     } catch (error) {
       console.log('due: ', error.message);
@@ -58,31 +54,46 @@ const useAction = () => {
       } else {
         console.log('Some other error happened', error);
       }
-      setError(error.toString());
+      setLoggedIn(false);
       dispatch({type: 'SET_LOGIN_CLEAN'});
     }
   };
 
-  // const isSignedIn = async () => {
-  //   const isSignedIn = await GoogleSignin.isSignedIn();
-  //   if (isSignedIn) {
-  //     getCurrentUserInfo();
-  //   } else {
-  //     console.log('Please login');
-  //   }
-  // };
+  const proccessLogin = () => {
+    if (isLoggedIn) {
+      // navigation.replace('Home');
+      dispatch({
+        type: 'SET_LOGIN',
+        user: user.user,
+        idToken: user.idToken,
+      });
+    } else {
+      signIn();
+    }
+  };
+
+  const isSignedIn = async () => {
+    const isSignedIn = await GoogleSignin.isSignedIn();
+    if (isSignedIn) {
+      getCurrentUserInfo();
+    } else {
+      console.log('Please login');
+    }
+  };
 
   const getCurrentUserInfo = async () => {
     try {
       const userInfo = await GoogleSignin.signInSilently();
       console.log('edit: ', user);
       setUser(userInfo);
+      setLoggedIn(true);
     } catch (error) {
       if (error.code === statusCodes.SIGN_IN_REQUIRED) {
         console.log('User has not signed:', error);
       } else {
         console.log('Something went wrong in curr:', error);
       }
+      setLoggedIn(false);
       dispatch({type: 'SET_LOGIN_CLEAN'});
     }
   };
@@ -101,10 +112,13 @@ const useAction = () => {
     form,
     user,
     navigation,
+    isLoggedIn,
+    setLoggedIn,
     setToogle,
     onChangeText,
     signIn,
     signOut,
+    proccessLogin,
   };
 };
 

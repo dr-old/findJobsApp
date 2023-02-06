@@ -17,6 +17,20 @@ const stylesCust = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  userLogin: {
+    flex: 1,
+    flexDirection: 'row',
+    marginBottom: 20,
+    backgroundColor: color.white8,
+    padding: 20,
+    borderRadius: 12,
+  },
+  userImage: {
+    resizeMode: 'cover',
+    width: 50,
+    height: 50,
+    borderRadius: 70,
+  },
 });
 
 export default stylesCust;

@@ -20,12 +20,17 @@ const Login = () => {
     isToogle,
     form,
     user,
-    login,
     navigation,
+    isLoggedIn,
+    setLoggedIn,
     setToogle,
     onChangeText,
     signIn,
+    signOut,
+    proccessLogin,
   } = useAction();
+
+  console.log(user.user);
 
   return (
     <Container
@@ -41,15 +46,20 @@ const Login = () => {
         />
       </View>
       <View style={stylesCust.contentBody}>
+        <View style={stylesCust.userLogin}>
+          <Image source={{uri: user.user.photo}} style={stylesCust.userImage} />
+          <View style={{flex: 1, marginLeft: 20}}>
+            <Text style={styles.h3()}>{user.user.name}</Text>
+            <Text style={styles.p5(color.tgrey)}>{user.user.email}</Text>
+          </View>
+        </View>
         <ButtonLabel
-          type={user?.idToken ? 'success' : 'primary'}
+          type={isLoggedIn ? 'success' : 'primary'}
           solid={true}
-          label={user?.idToken ? 'Lanjut Masuk' : 'Login dengan Google!'}
+          label={isLoggedIn ? 'Lanjut Masuk' : 'Login dengan Google!'}
           size="large"
           // disabled={!signInValidate()}
-          onClick={() =>
-            user?.idToken ? navigation.replace('Home') : signIn()
-          }
+          onClick={() => proccessLogin()}
         />
       </View>
     </Container>
