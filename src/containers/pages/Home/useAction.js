@@ -50,7 +50,6 @@ const useAction = () => {
         link: `recruitment/positions.json?description=${search}&location=${location}&fulltime=${isFulltime.toString()}`,
       };
     }
-    console.log(payload);
     dispatch(fetchJobsData(payload));
   };
 

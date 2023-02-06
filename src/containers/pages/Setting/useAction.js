@@ -1,11 +1,14 @@
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
 import {useNavigation} from '@react-navigation/native';
+import {useContext} from 'react';
 import {useDispatch, useSelector, useEffect} from 'react-redux';
+import AuthContext from '../../../../AuthContext';
 
 const useAction = () => {
   const dispatch = useDispatch();
   const login = useSelector(state => state.generalReducer.login);
   const navigation = useNavigation();
+  const {signOutContext} = useContext(AuthContext);
 
   GoogleSignin.configure({
     webClientId:
@@ -15,10 +18,10 @@ const useAction = () => {
 
   const signOut = async () => {
     try {
-      // await GoogleSignin.revokeAccess();
-      // await GoogleSignin.signOut();
+      await GoogleSignin.revokeAccess();
+      await GoogleSignin.signOut();
       dispatch({type: 'SET_LOGIN_CLEAN'});
-      navigation.replace('Login');
+      signOutContext();
     } catch (error) {
       console.log(error);
     }

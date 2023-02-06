@@ -31,6 +31,7 @@ const Container = ({
           onProfile={navbar?.onProfile}
           onClick={navbar?.onClick}
           onChangeText={navbar?.onChangeText}
+          icon={navbar?.icon}
           value={navbar?.value}
         />
       ) : null}
@@ -47,6 +48,7 @@ const Container = ({
             onProfile={navbar?.onProfile}
             onClick={navbar?.onClick}
             onChangeText={navbar?.onChangeText}
+            icon={navbar?.icon}
             value={navbar?.value}
           />
         ) : null}

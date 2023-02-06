@@ -30,8 +30,6 @@ const Login = () => {
     proccessLogin,
   } = useAction();
 
-  console.log(user.user);
-
   return (
     <Container
       navbar={{

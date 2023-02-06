@@ -50,8 +50,8 @@ const stylesCust = StyleSheet.create({
     marginBottom: 20,
   },
   icon: backgroundColor => ({
-    width: 48,
-    height: 48,
+    width: 40,
+    height: 40,
     borderRadius: 13,
     justifyContent: 'center',
     alignItems: 'center',

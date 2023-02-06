@@ -11,6 +11,7 @@ function NavHeader({
   onSearch,
   onProfile,
   onChangeText,
+  icon,
   value,
 }) {
   const [isSearch, setSearch] = useState('');
@@ -43,16 +44,18 @@ function NavHeader({
               onSubmitEditing={onSearch}
             />
           </View>
-          <Divider width={30} />
+          <Divider width={20} />
           {onProfile ? (
             <>
-              <TouchableOpacity onPress={onProfile} style={stylesCust.profile}>
-                <FontAwesome5
-                  name="chevron-down"
-                  size={20}
-                  color={color.white}
-                />
-              </TouchableOpacity>
+              {/* <TouchableOpacity onPress={onProfile} style={stylesCust.profile}>
+                <FontAwesome5 name={icon} size={20} color={color.bluep} />
+              </TouchableOpacity> */}
+              <ButtonIcon
+                type="primary"
+                name={icon}
+                size={20}
+                onClick={onProfile}
+              />
               <Divider width={30} />
             </>
           ) : null}
@@ -66,10 +69,10 @@ function NavHeader({
 
 const stylesCust = StyleSheet.create({
   profile: {
-    backgroundColor: color.bluep,
+    backgroundColor: color.blue3,
     width: 40,
     height: 40,
-    borderRadius: 40,
+    borderRadius: 12,
     justifyContent: 'center',
     alignItems: 'center',
   },
