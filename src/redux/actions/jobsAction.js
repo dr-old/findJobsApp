@@ -6,3 +6,10 @@ export function fetchJobsData(data) {
     payload: data,
   };
 }
+
+export function fetchJobsDetailData(data) {
+  return {
+    type: types.GET_JOBS_DETAIL,
+    payload: data,
+  };
+}

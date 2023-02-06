@@ -7,6 +7,7 @@ const stylesCust = StyleSheet.create({
     resizeMode: 'cover',
     height: 250,
   },
+  button: {marginHorizontal: 30, marginVertical: 30},
   buttonFloat: {
     position: 'absolute',
     left: 0,
@@ -20,6 +21,25 @@ const stylesCust = StyleSheet.create({
     paddingHorizontal: 20,
     backgroundColor: color.white,
     borderRadius: 15,
+  },
+  a: {
+    color: color.bluep, // make links coloured pink
+  },
+  p: {
+    color: color.tgrey,
+    padding: 0,
+    margin: 0,
+    fontFamily: 'Poppins-Regular',
+  },
+  li: {
+    color: color.tgrey,
+    padding: 0,
+    margin: 0,
+    fontFamily: 'Poppins-Regular',
+  },
+  strong: {
+    color: color.tblack,
+    fontFamily: 'Poppins-Medium',
   },
 });
 
