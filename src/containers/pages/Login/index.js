@@ -46,13 +46,18 @@ const Login = () => {
         />
       </View>
       <View style={stylesCust.contentBody}>
-        <View style={stylesCust.userLogin}>
-          <Image source={{uri: user.user.photo}} style={stylesCust.userImage} />
-          <View style={{flex: 1, marginLeft: 20}}>
-            <Text style={styles.h3()}>{user.user.name}</Text>
-            <Text style={styles.p5(color.tgrey)}>{user.user.email}</Text>
+        {user?.user?.name ? (
+          <View style={stylesCust.userLogin}>
+            <Image
+              source={{uri: user.user.photo}}
+              style={stylesCust.userImage}
+            />
+            <View style={stylesCust.userInfo}>
+              <Text style={styles.h3()}>{user.user.name}</Text>
+              <Text style={styles.p5(color.tgrey)}>{user.user.email}</Text>
+            </View>
           </View>
-        </View>
+        ) : null}
         <ButtonLabel
           type={isLoggedIn ? 'success' : 'primary'}
           solid={true}

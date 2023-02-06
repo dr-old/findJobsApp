@@ -31,6 +31,7 @@ const stylesCust = StyleSheet.create({
     height: 50,
     borderRadius: 70,
   },
+  userInfo: {flex: 1, marginLeft: 20},
 });
 
 export default stylesCust;
