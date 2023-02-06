@@ -8,6 +8,8 @@ import {
   statusCodes,
 } from '@react-native-google-signin/google-signin';
 import {Alert} from 'react-native';
+import {useContext} from 'react';
+import AuthContext from '../../../../AuthContext';
 
 const useAction = () => {
   const dispatch = useDispatch();
@@ -16,33 +18,55 @@ const useAction = () => {
   const [isToogle, setToogle] = useState(true);
   const [user, setUser] = useState({});
   const [isLoggedIn, setLoggedIn] = useState(false);
-  const [isError, setError] = useState(null);
+  const [isMounted, setMounted] = useState(true);
+  const {signInContext} = useContext(AuthContext);
+
+  GoogleSignin.configure({
+    scopes: ['email'],
+    webClientId:
+      '920534733394-m38uodis0ddd3a0epf7alecracrngpc4.apps.googleusercontent.com', // client ID of type WEB for your server (needed to verify user ID and offline access)
+    offlineAccess: false, // if you want to access Google API on behalf of the user FROM YOUR SERVER
+    profileImageSize: 120, // [iOS] The desired height (and width) of the profile image. Defaults to 120px
+  });
 
   useEffect(() => {
-    GoogleSignin.configure({
-      scopes: ['email'],
-      webClientId:
-        '920534733394-m38uodis0ddd3a0epf7alecracrngpc4.apps.googleusercontent.com', // client ID of type WEB for your server (needed to verify user ID and offline access)
-      offlineAccess: false, // if you want to access Google API on behalf of the user FROM YOUR SERVER
-      profileImageSize: 120, // [iOS] The desired height (and width) of the profile image. Defaults to 120px
-    });
+    // const isSignedIn = async () => {
+    //   const isSignedIn = await GoogleSignin.isSignedIn();
+    //   if (!isSignedIn) {
+    //     getCurrentUserInfo();
+    //   } else {
+    //     console.log('Please login');
+    //   }
+    // };
+    // if (isMounted) {
     // isSignedIn();
+    // }
+    // return () => {
+    //   setMounted(false);
+    // };
   });
+
+  // useEffect(() => {
+  //   if (isLoggedIn) {
+  //     dispatch({
+  //       type: 'SET_LOGIN',
+  //       user: user.user,
+  //       idToken: user.idToken,
+  //     });
+  //     setLoggedIn(false);
+  //   }
+  // }, [isLoggedIn, user, setLoggedIn, dispatch]);
 
   const onChangeText = (type, value) => {
     dispatch({type: 'SET_FORM_LOGIN', inputType: type, inputValue: value});
   };
 
   const signIn = async () => {
-    console.log(form);
     try {
       await GoogleSignin.hasPlayServices();
       const userInfo = await GoogleSignin.signIn();
-      // console.log('user: ', userInfo);
       setUser(userInfo);
-      setError(null);
       setLoggedIn(true);
-      // navigation.replace('Home');
     } catch (error) {
       console.log('due: ', error.message);
       if (error.code === statusCodes.SIGN_IN_CANCELLED) {
@@ -55,36 +79,34 @@ const useAction = () => {
         console.log('Some other error happened', error);
       }
       setLoggedIn(false);
-      dispatch({type: 'SET_LOGIN_CLEAN'});
+      // dispatch({type: 'SET_LOGIN_CLEAN'});
     }
   };
 
   const proccessLogin = () => {
     if (isLoggedIn) {
-      // navigation.replace('Home');
+      signInContext({token: user.idToken});
       dispatch({
         type: 'SET_LOGIN',
         user: user.user,
         idToken: user.idToken,
       });
+      setLoggedIn(false);
+      setUser({});
     } else {
       signIn();
-    }
-  };
-
-  const isSignedIn = async () => {
-    const isSignedIn = await GoogleSignin.isSignedIn();
-    if (isSignedIn) {
-      getCurrentUserInfo();
-    } else {
-      console.log('Please login');
     }
   };
 
   const getCurrentUserInfo = async () => {
     try {
       const userInfo = await GoogleSignin.signInSilently();
-      console.log('edit: ', user);
+      console.log('test', userInfo);
+      dispatch({
+        type: 'SET_LOGIN',
+        user: userInfo.user,
+        idToken: userInfo.idToken,
+      });
       setUser(userInfo);
       setLoggedIn(true);
     } catch (error) {
@@ -94,7 +116,7 @@ const useAction = () => {
         console.log('Something went wrong in curr:', error);
       }
       setLoggedIn(false);
-      dispatch({type: 'SET_LOGIN_CLEAN'});
+      // dispatch({type: 'SET_LOGIN_CLEAN'});
     }
   };
 

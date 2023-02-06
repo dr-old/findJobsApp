@@ -15,7 +15,7 @@ const initialState = {
     password: '',
   },
   login: {
-    idToken: '',
+    idToken: null,
     user: {},
   },
   formLogin: {
@@ -174,7 +174,7 @@ export default generalReducer = (state = initialState, action) => {
         ...state,
         login: {
           ...state.login,
-          idToken: '',
+          idToken: null,
           user: {},
         },
       };

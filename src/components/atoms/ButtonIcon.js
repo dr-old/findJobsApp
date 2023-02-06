@@ -105,10 +105,10 @@ const stylesCust = StyleSheet.create({
     alignItems = 'center',
     borderColor,
     marginVertical = 0,
-    borderRadius = 4,
+    borderRadius = 12,
   ) => ({
-    minHeight: 38,
-    width: 48,
+    minHeight: 40,
+    width: 40,
     backgroundColor: backgroundColor,
     borderColor: borderColor,
     borderWidth: 1,

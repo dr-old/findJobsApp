@@ -41,9 +41,7 @@ const helpers = {
     var sum = 0;
     for (var i = 0; i < arr.length; i++) {
       sum += parseFloat(arr[i][input]);
-      console.log('sum', sum);
     }
-    console.log('newSum', sum);
     return sum.toString();
   },
   sumArrayNew: function (a, type) {

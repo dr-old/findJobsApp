@@ -53,6 +53,7 @@ function Home() {
       navbar={{
         type: 'fixed',
         value: isSearch,
+        icon: !isOpenFilter ? 'chevron-down' : 'chevron-up',
         onChangeText: value => setSearch(value),
         onSearch: () => getJobs(),
         onProfile: () => setOpenFilter(!isOpenFilter),
